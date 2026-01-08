@@ -1,0 +1,192 @@
+CREATE TABLE paises (
+    id_pais SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE categorias (
+    id_categoria SERIAL PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE armas (
+    id_arma SERIAL PRIMARY KEY,
+    nome VARCHAR(150) NOT NULL,
+    alcance_km INTEGER,
+    id_pais INTEGER,
+    id_categoria INTEGER,
+
+    CONSTRAINT fk_pais
+        FOREIGN KEY (id_pais)
+        REFERENCES paises (id_pais),
+
+    CONSTRAINT fk_categoria
+        FOREIGN KEY (id_categoria)
+        REFERENCES categorias (id_categoria)
+);
+
+INSERT INTO paises (nome) VALUES
+('Estados Unidos'),
+('Rússia');
+
+SELECT * FROM paises;
+
+INSERT INTO categorias (nome) VALUES
+('Míssil'),
+('Drone'),
+('Bomba');
+
+SELECT * FROM categorias;
+
+INSERT INTO armas (nome, alcance_km, id_pais, id_categoria) VALUES
+('Tomahawk', 1600, 1, 1),
+('Kalibr', 1500, 2, 1),
+('MQ-9 Reaper', 1850, 1, 2),
+('FAB-500', 300, 2, 3);
+
+SELECT * FROM armas;
+
+SELECT 
+    a.nome AS arma,
+    c.nome AS categoria,
+    p.nome AS pais_origem,
+    a.alcance_km
+FROM armas a
+JOIN categorias c ON a.id_categoria = c.id_categoria
+JOIN paises p ON a.id_pais = p.id_pais;
+
+SELECT 
+    a.nome AS arma,
+    c.nome AS categoria,
+    p.nome AS pais_origem,
+    a.alcance_km
+FROM armas a
+JOIN categorias c ON a.id_categoria = c.id_categoria
+JOIN paises p ON a.id_pais = p.id_pais
+ORDER BY a.alcance_km DESC;
+
+SELECT 
+    p.nome AS pais,
+    COUNT(a.id_arma) AS total_armas
+FROM paises p
+LEFT JOIN armas a ON p.id_pais = a.id_pais
+GROUP BY p.nome;
+
+INSERT INTO paises (nome) VALUES
+('China'),
+('França');
+
+SELECT * FROM paises;
+
+INSERT INTO armas (nome, alcance_km, id_pais, id_categoria) VALUES
+
+('DF-21', 1700, 3, 1),
+('Wing Loong II', 1500, 3, 2),
+
+
+('SCALP-EG', 560, 4, 1),
+('AASM Hammer', 60, 4, 3);
+
+
+SELECT 
+    a.nome AS arma,
+    c.nome AS categoria,
+    p.nome AS pais_origem,
+    a.alcance_km
+FROM armas a
+JOIN categorias c ON a.id_categoria = c.id_categoria
+JOIN paises p ON a.id_pais = p.id_pais
+ORDER BY p.nome, a.alcance_km DESC;
+
+INSERT INTO paises (nome) VALUES
+('Reino Unido'),
+('Israel');
+
+SELECT * FROM paises;
+
+INSERT INTO armas (nome, alcance_km, id_pais, id_categoria) VALUES
+
+('Storm Shadow', 560, 5, 1),
+('Brimstone', 40, 5, 1),
+
+
+('Iron Dome Tamir', 70, 6, 1),
+('Heron TP', 1000, 6, 2);
+
+SELECT 
+    p.nome AS pais,
+    c.nome AS categoria,
+    a.nome AS arma,
+    a.alcance_km
+FROM armas a
+JOIN paises p ON a.id_pais = p.id_pais
+JOIN categorias c ON a.id_categoria = c.id_categoria
+ORDER BY p.nome, a.alcance_km DESC;
+
+INSERT INTO paises (nome) VALUES
+('Índia'),
+('Alemanha');
+
+SELECT * FROM paises;
+
+INSERT INTO armas (nome, alcance_km, id_pais, id_categoria) VALUES
+
+('Agni-V', 5000, 7, 1),
+('Rustom-II', 1000, 7, 2),
+
+
+('Taurus KEPD 350', 500, 8, 1),
+('GMLRS', 70, 8, 1);
+
+SELECT 
+    p.nome AS pais,
+    c.nome AS categoria,
+    a.nome AS arma,
+    a.alcance_km
+FROM armas a
+JOIN paises p ON a.id_pais = p.id_pais
+JOIN categorias c ON a.id_categoria = c.id_categoria
+ORDER BY p.nome, a.alcance_km DESC;
+
+SELECT * 
+FROM armas;
+
+SELECT nome, alcance_km
+FROM armas;
+
+SELECT nome, alcance_km
+FROM armas
+WHERE alcance_km > 1000;
+
+SELECT nome, alcance_km
+FROM armas
+ORDER BY alcance_km DESC;
+
+SELECT 
+    a.nome AS arma,
+    p.nome AS pais
+FROM armas a
+JOIN paises p ON a.id_pais = p.id_pais;
+
+SELECT COUNT(*) AS total_armas
+FROM armas;
+
+SELECT 
+    p.nome AS pais,
+    COUNT(a.id_arma) AS total_armas
+FROM paises p
+LEFT JOIN armas a ON p.id_pais = a.id_pais
+GROUP BY p.nome;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
